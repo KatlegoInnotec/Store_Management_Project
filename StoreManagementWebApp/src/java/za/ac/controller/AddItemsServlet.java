@@ -56,6 +56,8 @@ public class AddItemsServlet extends HttpServlet {
     
     @EJB
     ItemFacadeLocal ifl;
+    
+    @EJB
     EmployeeFacadeLocal efl;
 
     @Override
@@ -69,13 +71,12 @@ public class AddItemsServlet extends HttpServlet {
                     brandname = request.getParameter("brandname");
             Double itemprice = Double.parseDouble(request.getParameter("itemprice"));
             Integer quan = Integer.parseInt(request.getParameter("quan"));
-
-            Item obj = new Item(itemname, brandname, itemprice, quan);
+            
             Long id = (Long)session.getAttribute("empno");
             
-            Employee emp = efl.find(id);
             
-            obj.setEmpno(emp);
+            Item obj = new Item(itemname, brandname, itemprice, quan, id);
+            
 
             ifl.create(obj);
 

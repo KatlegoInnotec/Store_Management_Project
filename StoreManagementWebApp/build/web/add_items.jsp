@@ -24,7 +24,7 @@
             }
         %>
         
-        <form action="AddItemsServlet" method="POST">
+        <form action="AddItemsServlet.do" method="POST">
             <table>
                 <tr>
                     <td>Item Name</td>
@@ -36,11 +36,11 @@
                 </tr>
                 <tr>
                     <td>Item price</td>
-                    <td><input type="number" name="itemprice"></td>
+                    <td><input type="number" step="any" name="itemprice"></td>
                 </tr>
                 <tr>
                     <td>Quantity</td>
-                    <td><input type="number" name="quan"></td>
+                    <td><input type="number"  name="quan"></td>
                 </tr>
                 <tr>
 
@@ -49,5 +49,8 @@
 
             </table>
         </form>
+        <ul>
+            <li><a href="marg_menu.jsp">Back</a></li>
+        </ul>
     </body>
 </html>

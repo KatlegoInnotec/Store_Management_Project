@@ -8,13 +8,37 @@
         <servlet-name>AddItemsServlet</servlet-name>
         <servlet-class>za.ac.controller.AddItemsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewItemsServlet</servlet-name>
+        <servlet-class>za.ac.controller.ViewItemsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteItemServlet</servlet-name>
+        <servlet-class>za.ac.controller.DeleteItemServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditItemServlet</servlet-name>
+        <servlet-class>za.ac.controller.EditItemServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddItemsServlet</servlet-name>
-        <url-pattern>/AddItemsServlet</url-pattern>
+        <url-pattern>/AddItemsServlet.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewItemsServlet</servlet-name>
+        <url-pattern>/ViewItems</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteItemServlet</servlet-name>
+        <url-pattern>/DeleteItem</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditItemServlet</servlet-name>
+        <url-pattern>/EditItem</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
