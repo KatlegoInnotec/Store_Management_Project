@@ -27,11 +27,12 @@
         </p>
         <ul>
             <li><a href="add_items.jsp">Add Items</a></li>
-            <li><a href="view_items.jsp">View Items</a></li>
-            <li><a href="update_items.jsp">Update Items</a></li>
-            <li><a href="delete_items.jsp">Delete Items</a></li>
-
+            <li><a href="ViewItems">View Items</a></li>
+            <li><a href="ViewOrders">View Orders</a></li>
+            
         </ul>
-        <p>Login out <a href="index.html"> here </a></p>
+        
+        
+        <p>Login out <a href="LoginServlet.do?logout=true"> here </a></p>
     </body>
 </html>

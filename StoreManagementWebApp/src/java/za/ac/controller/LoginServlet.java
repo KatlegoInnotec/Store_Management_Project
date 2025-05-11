@@ -30,6 +30,14 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        
+        String logout = request.getParameter("logout");
+        
+        if("true".equals(logout)){
+            session.invalidate();
+            response.sendRedirect("index.html");
+        }
     }
 
     @Override

@@ -11,7 +11,7 @@ import za.ac.model.entities.Employee;
 
 /**
  *
- * @author innoc
+ * @author Kgothatso Moyo
  */
 @Local
 public interface EmployeeFacadeLocal {

@@ -28,14 +28,14 @@ public class Customer implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long custId;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-
-    private List<Item> orderList;
+    
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<OrderItem> orderList;
 
     public Customer() {
     }
 
-    public Customer( String name, List<Item> orderList) {
+    public Customer( String name, List<OrderItem> orderList) {
         
         this.name = name;
         this.orderList = orderList;
@@ -49,11 +49,11 @@ public class Customer implements Serializable {
         this.name = name;
     }
 
-    public List<Item> getOrderList() {
+    public List<OrderItem> getOrderList() {
         return orderList;
     }
 
-    public void setOrderList(List<Item> orderList) {
+    public void setOrderList(List<OrderItem> orderList) {
         this.orderList = orderList;
     }
 
@@ -87,7 +87,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "za.ac.model.entities.Cutomer[ id=" + custId + " ]";
+        return "za.ac.model.entities.Customer[ id=" + custId + " ]";
     }
 
 }

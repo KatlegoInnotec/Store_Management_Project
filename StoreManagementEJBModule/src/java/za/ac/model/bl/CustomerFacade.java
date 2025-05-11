@@ -12,7 +12,7 @@ import za.ac.model.entities.Customer;
 
 /**
  *
- * @author innoc
+ * @author Kgothatso Moyo
  */
 @Stateless
 public class CustomerFacade extends AbstractFacade<Customer> implements CustomerFacadeLocal {

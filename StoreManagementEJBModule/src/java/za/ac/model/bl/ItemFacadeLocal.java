@@ -11,7 +11,7 @@ import za.ac.model.entities.Item;
 
 /**
  *
- * @author innoc
+ * @author Kgothatso Moyo
  */
 @Local
 public interface ItemFacadeLocal {
@@ -29,5 +29,5 @@ public interface ItemFacadeLocal {
     List<Item> findRange(int[] range);
 
     int count();
-    
+    List<Item> searchFunction(String input);
 }

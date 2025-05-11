@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Add Items!</h1>
-        
+
         <%
             String msg = (String) request.getAttribute("msg");
 
@@ -23,7 +23,7 @@
         <%
             }
         %>
-        
+
         <form action="AddItemsServlet" method="POST">
             <table>
                 <tr>
@@ -50,4 +50,8 @@
             </table>
         </form>
     </body>
+
+    <ul>
+        <li><a href="marg_menu.jsp">Back</a></li>
+    </ul>
 </html>

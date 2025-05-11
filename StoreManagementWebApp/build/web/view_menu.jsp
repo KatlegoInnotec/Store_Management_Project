@@ -9,14 +9,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Menu Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Available Items Below!</h1>
         
-        <form action="ViewItemsServlet">
+        <form action="ViewItems">
             <table>
                 <tr>
+                    <td><input type="text" name="custName" placeholder="Enter Your Name" required=""></td>
+                    <td><input type="hidden" name="user" value="customer"></td>
                     <td><input type="submit" value="View Menu"></td>
                 </tr>
             </table>

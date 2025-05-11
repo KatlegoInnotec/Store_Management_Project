@@ -14,9 +14,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import za.ac.model.bl.CustomerFacadeLocal;
+import za.ac.model.bl.ItemFacadeLocal;
+import za.ac.model.bl.OrderItemFacadeLocal;
 import za.ac.model.entities.Customer;
 import za.ac.model.entities.Item;
+import za.ac.model.entities.OrderItem;
 
 /**
  *
@@ -24,88 +28,108 @@ import za.ac.model.entities.Item;
  */
 public class CreateOrderServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    @EJB
+    OrderItemFacadeLocal ofl;
+
+    @EJB
+    ItemFacadeLocal ifl;
+
     @EJB
     CustomerFacadeLocal cfl;
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-          try {
-            String name = request.getParameter("name");
-            //Long empno = Long.parseLong(request.getParameter("empno"));
 
-            String[] itemNames = request.getParameterValues("itemName");
-            String[] itemBrands = request.getParameterValues("itemBrand");
-            String[] itemPrices = request.getParameterValues("itemPrice");
-            String[] quantities = request.getParameterValues("quantity");
-
-            List<Item> items = new ArrayList<>();
-            for (int i = 0; i < itemNames.length; i++) {
-                Item item = new Item();
-                item.setItemName(itemNames[i]);
-                item.setItemBrand(itemBrands[i]);
-                item.setItemPrice(Double.parseDouble(itemPrices[i]));
-                item.setQuantity(Integer.parseInt(quantities[i]));
-                items.add(item);
-            }
-            
-              Customer c = new Customer(name, items);
-
-            cfl.create(c);
-
-             request.setAttribute("msg", "Item added Succesfuly");
-            request.getRequestDispatcher("order_added.jsp").forward(request, response);
-        } catch (Exception e) {
-            
-        }
-    }
-  
- 
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        HttpSession session = request.getSession();
+        String[] selectedItems = request.getParameterValues("selectedItems");
+        String destination = request.getParameter("param");
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        List<Item> items = new ArrayList<>();
+        boolean allValid = true;
+
+        if (selectedItems != null) {
+
+            for (int i = 0; i < selectedItems.length; i++) {
+
+                String id = selectedItems[i];
+                String quantStr = request.getParameter("quan#" + id);
+                Integer quantity = Integer.parseInt(quantStr);
+                Item item = ifl.find(Long.parseLong(id));           //original stock item 
+
+                if (quantity > item.getQuantity()) {     //compare quantities to make sure customer does not order more than whats available
+                    allValid = false;
+                    break;
+                } else {
+                    item.setQuantity(quantity);
+                    items.add(item);
+                }
+
+            }
+            if (!allValid) {
+                 request.setAttribute("msg", "You ordered More than what is available");
+                if ("search".equals(destination)) {
+                   
+                    request.getRequestDispatcher("search_result.jsp").forward(request, response);
+                } else {
+                    
+                    request.getRequestDispatcher("cus_view_items.jsp").forward(request, response);
+                }
+
+            } else {
+                //create customer details
+                Customer customer = new Customer();
+                String cName = (String) session.getAttribute("custName");
+                customer.setName(cName);
+                List<OrderItem> order = new ArrayList<>();
+                cfl.create(customer);
+                
+                //initialize customer order
+                for (Item i : items) {
+                    OrderItem oi = new OrderItem(i.getQuantity(), customer, i);
+                    order.add(oi);
+                    ofl.create(oi);
+                }
+                customer.setOrderList(order);
+                cfl.edit(customer);
+                
+                //update stock information
+                for(OrderItem i : customer.getOrderList()){
+                    Item item = ifl.find(i.getItem().getItemId());
+                    Integer newValue = item.getQuantity() - i.getQuantity();
+                    item.setQuantity(newValue);
+                    ifl.edit(item);
+                }
+
+                request.setAttribute("msg", "Your Order was Added Successfully");
+                customer = cfl.find(customer.getCustId());
+                customer.getOrderList().size();
+                
+                List<Item> stock = ifl.findAll();
+                session.setAttribute("stock", stock);
+                session.setAttribute("customer", customer);
+                request.getRequestDispatcher("order_added.jsp").forward(request, response);
+                
+
+            }
+
+        } else {
+            allValid = false;
+            request.setAttribute("msg", "Select Any Items To Place an Order!!");
+            if ("search".equals(destination)) {
+               
+                request.getRequestDispatcher("search_result.jsp").forward(request, response);
+            } else {
+                
+                request.getRequestDispatcher("cus_view_items.jsp").forward(request, response);
+            }
+
+        }
+
+    }
 
 }
