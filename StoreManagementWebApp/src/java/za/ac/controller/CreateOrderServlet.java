@@ -7,22 +7,22 @@ package za.ac.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import za.ac.model.bl.EmployeeFacadeLocal;
-import za.ac.model.bl.ItemFacadeLocal;
-import za.ac.model.entities.Employee;
+import za.ac.model.bl.CustomerFacadeLocal;
+import za.ac.model.entities.Customer;
 import za.ac.model.entities.Item;
 
 /**
  *
  * @author innoc
  */
-public class AddItemsServlet extends HttpServlet {
+public class CreateOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,10 +33,41 @@ public class AddItemsServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    @EJB
+    CustomerFacadeLocal cfl;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+          try {
+            String name = request.getParameter("name");
+            //Long empno = Long.parseLong(request.getParameter("empno"));
 
+            String[] itemNames = request.getParameterValues("itemName");
+            String[] itemBrands = request.getParameterValues("itemBrand");
+            String[] itemPrices = request.getParameterValues("itemPrice");
+            String[] quantities = request.getParameterValues("quantity");
+
+            List<Item> items = new ArrayList<>();
+            for (int i = 0; i < itemNames.length; i++) {
+                Item item = new Item();
+                item.setItemName(itemNames[i]);
+                item.setItemBrand(itemBrands[i]);
+                item.setItemPrice(Double.parseDouble(itemPrices[i]));
+                item.setQuantity(Integer.parseInt(quantities[i]));
+                items.add(item);
+            }
+            
+              Customer c = new Customer(name, items);
+
+            cfl.create(c);
+
+             request.setAttribute("msg", "Item added Succesfuly");
+            request.getRequestDispatcher("order_added.jsp").forward(request, response);
+        } catch (Exception e) {
+            
+        }
     }
+  
+ 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -53,44 +84,25 @@ public class AddItemsServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    
-    @EJB
-    ItemFacadeLocal ifl;
-    EmployeeFacadeLocal efl;
-
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-    if (!request.getParameter("itemname").isEmpty() && !request.getParameter("brandname").isEmpty() && !request.getParameter("itemprice").isEmpty() && !request.getParameter("quan").isEmpty()) {
-
-            String itemname = request.getParameter("itemname"),
-                    brandname = request.getParameter("brandname");
-            Double itemprice = Double.parseDouble(request.getParameter("itemprice"));
-            Integer quan = Integer.parseInt(request.getParameter("quan"));
-            
-            
-            Long id = (Long)session.getAttribute("empno");
-            
-            
-            
-            
-            Item obj = new Item(itemname, brandname, itemprice, quan, id);
-            
-
-            ifl.create(obj);
-
-            request.setAttribute("msg", "Item added Succesfuly");
-            request.getRequestDispatcher("marg_menu.jsp").forward(request, response);
-        } else {
-            request.setAttribute("msg", "Item Was not Added (make sure all fields are filled)");
-            request.getRequestDispatcher("add_items.jsp").forward(request, response);
-
-        }
-
+        processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

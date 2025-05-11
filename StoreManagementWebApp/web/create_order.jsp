@@ -1,6 +1,6 @@
 <%-- 
-    Document   : add_items
-    Created on : 07-May-2025, 16:14:01
+    Document   : create_order
+    Created on : 11-May-2025, 08:16:41
     Author     : innoc
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Items Page</title>
+        <title>JSP Page</title>
     </head>
-    <body>
+      <body>
         <h1>Add Items!</h1>
         
         <%
@@ -24,11 +24,11 @@
             }
         %>
         
-        <form action="AddItemsServlet" method="POST">
+        <form action="CreateOrderServlet" method="POST">
             <table>
                 <tr>
-                    <td>Item Name</td>
-                    <td><input type="text" name="itemname"></td>
+                    <td>Name</td>
+                    <td><input type="text" name="cusname"></td>
                 </tr>
                 <tr>
                     <td>Item brand name</td>
@@ -36,11 +36,11 @@
                 </tr>
                 <tr>
                     <td>Item price</td>
-                    <td><input type="number" name="itemprice"></td>
+                    <td><input type="number" step="any" name="itemprice"></td>
                 </tr>
                 <tr>
                     <td>Quantity</td>
-                    <td><input type="number" name="quan"></td>
+                    <td><input type="number"  name="quan"></td>
                 </tr>
                 <tr>
 
@@ -49,5 +49,8 @@
 
             </table>
         </form>
+        <ul>
+            <li><a href="marg_menu.jsp">Back</a></li>
+        </ul>
     </body>
 </html>
