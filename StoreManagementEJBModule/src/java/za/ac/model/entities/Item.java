@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,14 +37,14 @@ public class Item implements Serializable {
     private Integer quantity;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date date;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Employee empno;
+    @Column(name = "added_by")
+    private Long empno;
 
     public Item() {
         this.date = new Date();
     }
 
-    public Item( String itemName, String itemBrand, Double ItemPrice, Integer quantity, Employee empno) {
+    public Item( String itemName, String itemBrand, Double ItemPrice, Integer quantity,Long empno ) {
        
         this.itemName = itemName;
         this.itemBrand = itemBrand;
@@ -53,11 +54,11 @@ public class Item implements Serializable {
         this.date = new Date();
     }
 
-    public Employee getEmpno() {
+    public Long getEmpno() {
         return empno;
     }
 
-    public void setEmpno(Employee empno) {
+    public void setEmpno(Long empno) {
         this.empno = empno;
     }
     

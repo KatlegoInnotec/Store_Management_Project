@@ -26,10 +26,10 @@ public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long cusId;
+    private Long custId;
     private String name;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name ="items_fk")
+
     private List<Item> orderList;
 
     public Customer() {
@@ -57,29 +57,29 @@ public class Customer implements Serializable {
         this.orderList = orderList;
     }
 
-    public Long getCusId() {
-        return cusId;
+    public Long getCustId() {
+        return custId;
     }
 
-    public void setCusId(Long cusId) {
-        this.cusId = cusId;
+    public void setCustId(Long custId) {
+        this.custId = custId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cusId != null ? cusId.hashCode() : 0);
+        hash += (custId != null ? custId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the cusId fields are not set
+        // TODO: Warning - this method won't work in the case the custId fields are not set
         if (!(object instanceof Customer)) {
             return false;
         }
         Customer other = (Customer) object;
-        if ((this.cusId == null && other.cusId != null) || (this.cusId != null && !this.cusId.equals(other.cusId))) {
+        if ((this.custId == null && other.custId != null) || (this.custId != null && !this.custId.equals(other.custId))) {
             return false;
         }
         return true;
@@ -87,7 +87,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "za.ac.model.entities.Cutomer[ id=" + cusId + " ]";
+        return "za.ac.model.entities.Cutomer[ id=" + custId + " ]";
     }
 
 }
