@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Search Result Page</title>
+        <link rel="stylesheet" href="search_result.css">
     </head>
     <body>
         <h1>Below are Your Search Results</h1>

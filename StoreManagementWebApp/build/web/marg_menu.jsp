@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Employee Menu Page</title>
+        <link rel="stylesheet" href="marg_menu.css">
     </head>
     <body>
         <h1>Menu!</h1>
@@ -33,6 +34,6 @@
         </ul>
         
         
-        <p>Login out <a href="LoginServlet.do?logout=true"> here </a></p>
+        <p>Log out <a href="LoginServlet.do?logout=true"> here </a></p>
     </body>
 </html>

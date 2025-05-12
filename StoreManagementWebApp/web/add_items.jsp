@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Items Page</title>
+        <link rel="stylesheet" href="add_items.css">
     </head>
     <body>
         <h1>Add Items!</h1>
