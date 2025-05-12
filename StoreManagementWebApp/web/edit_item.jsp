@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Edit Item Page</title>
+        <link rel="stylesheet" href="edit_item.css">
     </head>
     <body>
         <h1>Edit Item Details Below</h1>

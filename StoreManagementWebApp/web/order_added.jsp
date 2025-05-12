@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Order Added Page</title>
+        <link rel="stylesheet" href="order_added.css">
     </head>
     <body>
         <h1>Order_Added</h1>

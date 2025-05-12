@@ -13,6 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View All Orders Page</title>
+        <link rel="stylesheet" href="orders.css">
     </head>
     <body>
         <h1>Below is All the orders!</h1>

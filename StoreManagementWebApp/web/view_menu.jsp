@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Menu Page</title>
+        <link rel="stylesheet" href="view_menu.css">
     </head>
     <body>
         <h1>Available Items Below!</h1>

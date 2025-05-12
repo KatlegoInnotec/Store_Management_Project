@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Customer Menu Page</title>
+        <link rel="stylesheet" href="cus_view_items.css">
     </head>
     <body>
     <body>

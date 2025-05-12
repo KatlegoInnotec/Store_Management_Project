@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Manage Stock Page</title>
+        <link rel="stylesheet" href="mgr_view_items.css">
     </head>
     <body>
         <h1>Manage Inventory Below</h1>
